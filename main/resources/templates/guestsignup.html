@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Sign Up</title>
+    <link rel="stylesheet" href="/css/stylelogin.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <img src="/img/hotel.jpg" alt="Lotus Team Logo">
+            </div>
+            <h1>Create Your Account</h1>
+            <p class="subtitle">Join The Java Team</p>
+
+
+            <div th:if="${infoMessage}" class="info-message">
+                <p th:text="${infoMessage}"></p>
+            </div>
+            <div th:if="${errorMessage}" class="error-message">
+                <p th:text="${errorMessage}"></p>
+            </div>
+
+            <!-- Form Sign Up -->
+            <form action="/guest/signup" method="post" class="form">
+                <input type="text" id="logname" name="logname" placeholder="Full Name" required>
+                <input type="email" id="logemail" name="logemail" placeholder="Email" required>
+                <input type="password" id="logpass" name="logpass" placeholder="Password" required>
+                <input type="text" id="address" name="address" placeholder="Address" required>
+                <input type="text" id="phone" name="phone" placeholder="Phone Number" required>
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+
+            <!-- Links -->
+            <p class="back-to-login">Already have an account? <a href="/guest/login" class="login-link">Log In</a></p>
+        </div>
+    </div>
+</body>
+</html>

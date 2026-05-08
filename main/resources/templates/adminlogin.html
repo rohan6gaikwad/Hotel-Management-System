@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - The Lotus Team</title>
+    <link rel="stylesheet" href="/css/adminlogin.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/img/hotel.jpg" alt="Lotus Team Logo">
+        </div>
+        <h1>We are The Java Team</h1>
+        <p class="subtitle">Please login to your account</p>
+
+        <!-- Pesan Error -->
+        <div th:if="${error}" class="error-message">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Form Login -->
+        <form action="/adminlogin" method="post" id="loginForm">
+            <input type="text" id="email" name="email" placeholder="Email" required 
+                  th:value="${email}">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit" class="login-btn">Log In</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+/* adminlogin.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    background-color: #1e1e1e;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    width: 360px;
+    animation: fadeIn 1s ease-out;
+}
+
+.logo img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    border: 3px solid #ff8c42;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #bbb;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, background-color 0.3s;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+form input:focus {
+    transform: scale(1.05);
+    background-color: #333;
+    outline: none;
+    border-color: #ff8c42;
+    box-shadow: 0 0 8px rgba(255, 126, 95, 0.6);
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #ff8c42, #ff3c83);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    animation: fadeIn 2s ease-in-out;
+}
+
+form button:hover {
+    box-shadow: 0 4px 10px rgba(255, 60, 131, 0.4);
+    transform: translateY(-2px);
+}
+
+.login-options {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #bbb;
+}
+
+.btn-alt {
+    text-decoration: none;
+    color: #ff8c42;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.btn-alt:hover {
+    color: #ff3c83;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes buttonAnim {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.05);
+    }
+}
+
+form input:focus {
+    animation: buttonAnim 0.3s ease-in-out;
+}

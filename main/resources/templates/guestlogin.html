@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Login</title>
+    <link rel="stylesheet" href="/css/stylelogin.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <img src="/img/hotel.jpg" alt="Lotus Team Logo">
+            </div>
+            <h1>We are The Java Team</h1>
+            <p class="subtitle">Please login to your account</p>
+            
+            <!-- Display Error Message -->
+            <div class="error-message" style="color: red; margin-bottom: 10px;">
+
+                <p th:if="${error}" th:text="${error}"></p>
+            </div>
+            
+            
+
+            <!-- Form Login -->
+            <form action="/guest/login" method="post" class="form">
+                <input type="email" id="logemail" name="logemail" placeholder="Email" required>
+                <input type="password" id="logpass" name="logpass" placeholder="Password" required>
+                <button type="submit" class="login-btn">Log In</button>
+            </form>
+
+            <!-- Links -->
+            <p class="forgot-password"><a href="/forgot-password">Forgot password?</a></p>
+            <p class="create-account">Don't have an account? <a href="/guest/signup" class="create-new">Create New</a></p>
+        </div>
+    </div>
+</body>
+</html>

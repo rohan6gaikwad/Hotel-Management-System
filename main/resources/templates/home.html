@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ocean Hotel Maharashtra</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+          --navy: #0a1628; --deep: #0d1f3c; --ocean: #1a3a5c;
+          --gold: #c9a96e; --gold-light: #e8d5b0; --white: #ffffff;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+        /* NAVBAR */
+        nav {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+          padding: 22px 60px; display: flex; align-items: center; justify-content: space-between;
+          transition: all 0.4s ease;
+        }
+        nav.scrolled {
+          background: rgba(10,22,40,0.96); backdrop-filter: blur(12px);
+          padding: 14px 60px; border-bottom: 1px solid rgba(201,169,110,0.2);
+        }
+        .nav-brand {
+          font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400;
+          letter-spacing: 0.05em; color: var(--white); text-decoration: none;
+          display: flex; flex-direction: column; line-height: 1;
+        }
+        .nav-brand span {
+          font-size: 0.55rem; letter-spacing: 0.35em; color: var(--gold);
+          text-transform: uppercase; font-family: 'DM Sans', sans-serif; font-weight: 300; margin-top: 3px;
+        }
+        .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+        .nav-links a {
+          color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.82rem;
+          letter-spacing: 0.15em; text-transform: uppercase; font-weight: 400;
+          transition: color 0.3s; position: relative;
+        }
+        .nav-links a::after {
+          content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+          height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s;
+        }
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover::after { transform: scaleX(1); }
+        .nav-links a.active { color: var(--gold); }
+        .btn-login {
+          background: transparent; border: 1px solid var(--gold); color: var(--gold) !important;
+          padding: 9px 26px; border-radius: 2px; font-size: 0.75rem !important;
+          letter-spacing: 0.2em !important; text-transform: uppercase; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-login:hover { background: var(--gold); color: var(--navy) !important; }
+        .btn-login::after { display: none !important; }
+
+        /* HERO */
+        .hero {
+          position: relative; height: 100vh; min-height: 700px;
+          display: flex; align-items: center; overflow: hidden;
+        }
+        .hero-bg {
+          position: absolute; inset: 0;
+          background: url('/img/gambarhotel.jpeg') center/cover no-repeat;
+        }
+        .hero-gradient {
+          position: absolute; inset: 0;
+          background: linear-gradient(105deg, rgba(10,22,40,0.9) 0%, rgba(10,22,40,0.55) 60%, rgba(10,22,40,0.25) 100%);
+        }
+        .hero-line {
+          position: absolute; right: 0; top: 0; bottom: 0; width: 3px;
+          background: linear-gradient(180deg, transparent, var(--gold), transparent); opacity: 0.4;
+        }
+        .hero-content {
+          position: relative; z-index: 2; padding: 0 60px; max-width: 800px;
+          animation: fadeUp 1.2s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-eyebrow {
+          display: flex; align-items: center; gap: 14px;
+          font-size: 0.72rem; letter-spacing: 0.4em; text-transform: uppercase;
+          color: var(--gold); font-weight: 400; margin-bottom: 24px;
+          animation: fadeUp 1.2s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+        .hero h1 {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(3rem, 7vw, 6rem); font-weight: 300; line-height: 1.05;
+          margin-bottom: 28px; animation: fadeUp 1.2s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .hero h1 em { font-style: italic; color: var(--gold-light); }
+        .hero p {
+          font-size: 1.05rem; color: rgba(255,255,255,0.65); line-height: 1.8;
+          max-width: 480px; font-weight: 300; margin-bottom: 48px;
+          animation: fadeUp 1.2s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .hero-ctas {
+          display: flex; gap: 16px; flex-wrap: wrap;
+          animation: fadeUp 1.2s 0.4s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .btn-gold {
+          background: var(--gold); color: var(--navy); border: none; padding: 16px 40px;
+          font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.2em;
+          text-transform: uppercase; font-weight: 500; cursor: pointer; text-decoration: none;
+          border-radius: 2px; transition: all 0.3s; display: inline-block;
+        }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .btn-ghost {
+          background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4);
+          padding: 15px 36px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+          letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400;
+          cursor: pointer; text-decoration: none; border-radius: 2px; transition: all 0.3s; display: inline-block;
+        }
+        .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+        .hero-scroll {
+          position: absolute; bottom: 40px; left: 60px;
+          display: flex; align-items: center; gap: 12px;
+          font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.4);
+        }
+        .scroll-line {
+          width: 1px; height: 50px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.4), transparent);
+          animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+        /* STRIP */
+        .strip {
+          background: var(--gold); padding: 18px 60px;
+          display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap;
+        }
+        .strip-item {
+          display: flex; align-items: center; gap: 10px; color: var(--navy);
+          font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; white-space: nowrap;
+        }
+        .strip-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(10,22,40,0.3); }
+
+        /* SECTIONS */
+        section { padding: 110px 60px; }
+        .tag {
+          display: flex; align-items: center; gap: 14px;
+          font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
+          color: var(--gold); font-weight: 400; margin-bottom: 18px;
+        }
+        .tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+        .sec-title {
+          font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.4rem);
+          font-weight: 300; line-height: 1.15; margin-bottom: 22px;
+        }
+        .sec-title em { font-style: italic; color: var(--gold-light); }
+        .sec-lead { font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.8; font-weight: 300; max-width: 540px; }
+
+        /* FEATURES */
+        #features { background: var(--deep); }
+        .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px 100px; align-items: start; }
+        .feat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+        .feat-card {
+          background: var(--ocean); padding: 36px 30px; position: relative;
+          overflow: hidden; transition: all 0.4s; cursor: default;
+        }
+        .feat-card::after {
+          content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+          height: 2px; background: var(--gold); transform: scaleX(0); transition: transform 0.4s;
+        }
+        .feat-card:hover { background: #1f4a6e; transform: translateY(-4px); }
+        .feat-card:hover::after { transform: scaleX(1); }
+        .feat-icon { font-size: 1.6rem; color: var(--gold); margin-bottom: 18px; display: block; }
+        .feat-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 10px; }
+        .feat-card p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.7; font-weight: 300; }
+
+        /* ABOUT */
+        #about { background: var(--navy); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-img-wrap { position: relative; height: 560px; }
+        .about-img-main {
+          width: 80%; height: 460px; position: absolute; right: 0; top: 0;
+          background: url('/img/alam.jpg') center/cover; border-radius: 2px;
+        }
+        .about-img-stat {
+          width: 52%; height: 220px; position: absolute; left: 0; bottom: 0;
+          background: var(--ocean); border-radius: 2px; border: 4px solid var(--navy);
+          display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px;
+        }
+        .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--gold); line-height: 1; }
+        .stat-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+        .about-line { width: 1px; height: 80px; background: linear-gradient(180deg, var(--gold), transparent); margin-bottom: 30px; }
+        .about-feats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; }
+        .about-feat { display: flex; gap: 14px; align-items: flex-start; }
+        .af-icon { color: var(--gold); font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+        .about-feat h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 4px; }
+        .about-feat p { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+        /* ROOMS */
+        #rooms { background: var(--deep); }
+        .rooms-hdr { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+        .rooms-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 3px; height: 520px; }
+        .room-card { position: relative; overflow: hidden; cursor: pointer; }
+        .room-bg { position: absolute; inset: 0; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+        .room-card:nth-child(1) .room-bg { background: linear-gradient(135deg,#1a3a5c,#0d2a48); }
+        .room-card:nth-child(2) .room-bg { background: linear-gradient(135deg,#0f2d45,#1a4060); }
+        .room-card:nth-child(3) .room-bg { background: linear-gradient(135deg,#122338,#1e4a6e); }
+        .room-card:hover .room-bg { transform: scale(1.06); }
+        .room-overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,22,40,0.9) 0%, transparent 60%); }
+        .room-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 36px 30px; }
+        .room-type { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 8px; }
+        .room-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; margin-bottom: 12px; }
+        .room-card:nth-child(1) .room-name { font-size: 2rem; }
+        .room-price { font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+        .room-price strong { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold-light); font-weight: 300; margin-right: 4px; }
+        .room-badge {
+          position: absolute; top: 20px; left: 20px; background: var(--gold); color: var(--navy);
+          font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 5px 12px; font-weight: 500;
+        }
+        .view-all { color: var(--gold); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; transition: gap 0.3s; }
+        .view-all:hover { gap: 16px; }
+        .view-all::after { content: '→'; }
+
+        /* TESTIMONIALS */
+        #testimonials { background: var(--navy); position: relative; overflow: hidden; }
+        .testi-watermark {
+          position: absolute; font-family: 'Cormorant Garamond', serif; font-size: 18vw; font-weight: 300;
+          color: rgba(255,255,255,0.02); top: 50%; left: 50%; transform: translate(-50%,-50%);
+          white-space: nowrap; pointer-events: none;
+        }
+        .testi-hdr { text-align: center; margin-bottom: 70px; }
+        .testi-hdr .tag { justify-content: center; }
+        .testi-hdr .tag::before { display: none; }
+        .testi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; position: relative; z-index: 1; }
+        .testi-card {
+          background: var(--deep); padding: 36px 30px; border-top: 1px solid rgba(201,169,110,0.25); transition: transform 0.3s;
+        }
+        .testi-card:hover { transform: translateY(-6px); }
+        .testi-quote { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); line-height: 0.5; margin-bottom: 20px; display: block; opacity: 0.4; }
+        .testi-text { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; line-height: 1.7; color: rgba(255,255,255,0.8); margin-bottom: 28px; font-weight: 300; }
+        .testi-stars { color: var(--gold); font-size: 0.75rem; margin-bottom: 20px; letter-spacing: 2px; }
+        .testi-author { display: flex; align-items: center; gap: 14px; }
+        .testi-avatar {
+          width: 42px; height: 42px; border-radius: 50%; background: var(--ocean);
+          display: flex; align-items: center; justify-content: center;
+          font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); flex-shrink: 0;
+        }
+        .testi-name { font-size: 0.88rem; font-weight: 500; margin-bottom: 2px; }
+        .testi-role { font-size: 0.72rem; color: rgba(255,255,255,0.4); }
+
+        /* CONTACT */
+        #contact { background: var(--deep); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+        .contact-items { display: flex; flex-direction: column; margin-top: 44px; }
+        .contact-item { display: flex; gap: 22px; align-items: flex-start; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .contact-item:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+        .c-icon {
+          width: 44px; height: 44px; background: var(--ocean); border-radius: 2px;
+          display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1rem; flex-shrink: 0;
+        }
+        .c-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 5px; }
+        .c-val { font-size: 0.95rem; color: var(--white); }
+        .c-val a { color: var(--white); text-decoration: none; transition: color 0.3s; }
+        .c-val a:hover { color: var(--gold); }
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+        .contact-form h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 10px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+        .form-group input, .form-group select, .form-group textarea {
+          background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--white);
+          padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; border-radius: 2px;
+          outline: none; transition: border-color 0.3s; width: 100%; -webkit-appearance: none;
+        }
+        .form-group select option { background: var(--deep); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); background: rgba(201,169,110,0.05); }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .btn-submit {
+          background: var(--gold); color: var(--navy); border: none; padding: 16px 40px;
+          font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+          font-weight: 500; cursor: pointer; border-radius: 2px; transition: all 0.3s; align-self: flex-start;
+        }
+        .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+        /* FOOTER */
+        footer { background: #060f1e; padding: 70px 60px 40px; border-top: 1px solid rgba(201,169,110,0.15); }
+        .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .f-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 6px; }
+        .f-tag { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 20px; }
+        .f-about { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.8; font-weight: 300; margin-bottom: 28px; }
+        .f-socials { display: flex; gap: 12px; }
+        .f-social {
+          width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.15); border-radius: 2px;
+          display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4);
+          text-decoration: none; font-size: 0.85rem; transition: all 0.3s;
+        }
+        .f-social:hover { border-color: var(--gold); color: var(--gold); }
+        .footer-col h4 { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-col ul li a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.85rem; font-weight: 300; transition: color 0.3s; }
+        .footer-col ul li a:hover { color: var(--white); }
+        .footer-divider { width: 1px; height: 40px; background: rgba(201,169,110,0.3); margin: 0 auto 50px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .f-copy { font-size: 0.78rem; color: rgba(255,255,255,0.25); font-weight: 300; }
+
+        /* REVEAL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .d1{transition-delay:0.1s} .d2{transition-delay:0.2s} .d3{transition-delay:0.3s} .d4{transition-delay:0.4s}
+
+        @media (max-width: 900px) {
+          nav, nav.scrolled { padding: 16px 20px; }
+          section { padding: 70px 20px; }
+          .feat-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+          .rooms-grid { grid-template-columns: 1fr; height: auto; }
+          .rooms-grid .room-card { height: 240px; }
+          .rooms-hdr { flex-direction: column; align-items: flex-start; gap: 20px; }
+          .testi-grid { grid-template-columns: 1fr 1fr; }
+          .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+          .hero-content { padding: 0 20px; }
+          .hero-scroll { display: none; }
+          .strip { padding: 16px 20px; gap: 16px; }
+          footer { padding: 50px 20px 30px; }
+          .about-img-wrap { height: 380px; }
+          .about-img-main { height: 320px; }
+          .nav-links { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <a href="/home" class="nav-brand">
+        Ocean
+        <span>Ocean Hotel Maharashtra</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="/home" class="active">Home</a></li>
+        <li><a href="#rooms">Rooms</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="/login" class="btn-login">Book Now</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-gradient"></div>
+    <div class="hero-line"></div>
+    <div class="hero-content">
+        <div class="hero-eyebrow">Welcome to Ocean Hotel</div>
+        <h1>Discover Your<br><em>Favourite Place</em><br>in Maharashtra</h1>
+        <p>A leading hotel known for excellent service, high-quality facilities, and an unforgettable coastal experience.</p>
+        <div class="hero-ctas">
+            <a href="/login" class="btn-gold">Book a Room</a>
+            <a href="#about" class="btn-ghost">Explore Hotel</a>
+        </div>
+    </div>
+    <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+    <div class="strip-item"><i class="fa fa-wifi"></i> Free Wi-Fi</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item"><i class="fa fa-cutlery"></i> Restaurant & Bar</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item"><i class="fa fa-tint"></i> Ocean-View Pool</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item"><i class="fa fa-car"></i> Free Parking</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item"><i class="fa fa-leaf"></i> Luxury Spa</div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+    <div class="feat-grid">
+        <div class="reveal">
+            <div class="tag">Our Offerings</div>
+            <h2 class="sec-title">It's time to start<br>your <em>adventure</em></h2>
+            <p class="sec-lead">Enjoy a comfortable and unforgettable stay at Ocean Hotel — where modern facilities meet warm, professional hospitality.</p>
+        </div>
+        <div class="feat-cards">
+            <div class="feat-card reveal d1">
+                <span class="feat-icon"><i class="fa fa-bed"></i></span>
+                <h3>Luxury Rooms</h3>
+                <p>Elegantly designed rooms with premium amenities for the finest comfort.</p>
+            </div>
+            <div class="feat-card reveal d2">
+                <span class="feat-icon"><i class="fa fa-map-marker"></i></span>
+                <h3>Prime Location</h3>
+                <p>Close to the beach, shopping centres, and all major attractions.</p>
+            </div>
+            <div class="feat-card reveal d3">
+                <span class="feat-icon"><i class="fa fa-user-circle"></i></span>
+                <h3>Pro Service</h3>
+                <p>Our staff are ready to serve your every need, around the clock.</p>
+            </div>
+            <div class="feat-card reveal d4">
+                <span class="feat-icon"><i class="fa fa-star"></i></span>
+                <h3>Full Facilities</h3>
+                <p>Pool, spa, restaurant, meeting rooms and much more await you.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="about-grid">
+        <div class="about-img-wrap reveal">
+            <div class="about-img-main"></div>
+            <div class="about-img-stat">
+                <div class="stat-num">15+</div>
+                <div class="stat-label">Years of Excellence</div>
+            </div>
+        </div>
+        <div class="reveal d1">
+            <div class="about-line"></div>
+            <div class="tag">About Us</div>
+            <h2 class="sec-title">Founded to provide<br>the <em>best stay</em> for every guest</h2>
+            <p class="sec-lead">Ocean Hotel Maharashtra was established with a mission to deliver the finest hospitality experience. With a warm atmosphere, professional service, and complete facilities, we make every visit truly memorable.</p>
+            <div class="about-feats">
+                <div class="about-feat"><span class="af-icon"><i class="fa fa-check-circle"></i></span><div><h4>24/7 Concierge</h4><p>Always available to assist you with anything you need.</p></div></div>
+                <div class="about-feat"><span class="af-icon"><i class="fa fa-check-circle"></i></span><div><h4>Ocean Views</h4><p>Breathtaking sea views from select rooms and terraces.</p></div></div>
+                <div class="about-feat"><span class="af-icon"><i class="fa fa-check-circle"></i></span><div><h4>Fine Dining</h4><p>Restaurant serving local and international cuisines.</p></div></div>
+                <div class="about-feat"><span class="af-icon"><i class="fa fa-check-circle"></i></span><div><h4>Wellness Spa</h4><p>Rejuvenate your body and mind at our luxury spa centre.</p></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ROOMS -->
+<section id="rooms">
+    <div class="rooms-hdr">
+        <div class="reveal">
+            <div class="tag">Accommodations</div>
+            <h2 class="sec-title">Our <em>Rooms</em> & Suites</h2>
+        </div>
+        <a href="/login" class="view-all reveal d1">View All Rooms</a>
+    </div>
+    <div class="rooms-grid reveal">
+        <div class="room-card">
+            <div class="room-bg"></div>
+            <div class="room-overlay"></div>
+            <div class="room-badge">Most Popular</div>
+            <div class="room-content">
+                <span class="room-type">Signature</span>
+                <div class="room-name">Ocean Suite</div>
+                <div class="room-price">from <strong>₹8,500</strong> / night</div>
+            </div>
+        </div>
+        <div class="room-card">
+            <div class="room-bg"></div>
+            <div class="room-overlay"></div>
+            <div class="room-content">
+                <span class="room-type">Standard</span>
+                <div class="room-name">Deluxe Room</div>
+                <div class="room-price">from <strong>₹4,200</strong> / night</div>
+            </div>
+        </div>
+        <div class="room-card">
+            <div class="room-bg"></div>
+            <div class="room-overlay"></div>
+            <div class="room-content">
+                <span class="room-type">Premium</span>
+                <div class="room-name">Sea View Room</div>
+                <div class="room-price">from <strong>₹6,000</strong> / night</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+    <div class="testi-watermark">OCEAN</div>
+    <div class="testi-hdr reveal">
+        <div class="tag">Testimonials</div>
+        <h2 class="sec-title">What our <em>guests</em> say</h2>
+    </div>
+    <div class="testi-grid">
+        <div class="testi-card reveal d1">
+            <span class="testi-quote">"</span>
+            <p class="testi-text">An amazing experience! The staff were incredibly friendly and helpful, and the rooms were absolutely comfortable.</p>
+            <div class="testi-stars">★★★★★</div>
+            <div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Alex</div><div class="testi-role">Hotel Guest</div></div></div>
+        </div>
+        <div class="testi-card reveal d2">
+            <span class="testi-quote">"</span>
+            <p class="testi-text">Fast check-in, satisfying service, and the room was spotlessly clean. Great for a relaxing break!</p>
+            <div class="testi-stars">★★★★★</div>
+            <div class="testi-author"><div class="testi-avatar">J</div><div><div class="testi-name">Jordan</div><div class="testi-role">Hotel Guest</div></div></div>
+        </div>
+        <div class="testi-card reveal d3">
+            <span class="testi-quote">"</span>
+            <p class="testi-text">Highly satisfying service and the room was clean and comfortable. Would definitely come back!</p>
+            <div class="testi-stars">★★★★★</div>
+            <div class="testi-author"><div class="testi-avatar">C</div><div><div class="testi-name">Chris</div><div class="testi-role">Hotel Guest</div></div></div>
+        </div>
+        <div class="testi-card reveal d4">
+            <span class="testi-quote">"</span>
+            <p class="testi-text">Perfect location with breathtaking views. The ocean-view pool was simply incredible!</p>
+            <div class="testi-stars">★★★★★</div>
+            <div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sam</div><div class="testi-role">Hotel Guest</div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="contact-grid">
+        <div class="reveal">
+            <div class="tag">Get In Touch</div>
+            <h2 class="sec-title">Contact <em>Us</em></h2>
+            <p class="sec-lead">We'd love to hear from you. Reach out with any enquiry or to make a reservation.</p>
+            <div class="contact-items">
+                <div class="contact-item"><div class="c-icon"><i class="fa fa-map-marker"></i></div><div><div class="c-label">Address</div><div class="c-val">123 Coastal Road, Maharashtra, India</div></div></div>
+                <div class="contact-item"><div class="c-icon"><i class="fa fa-phone"></i></div><div><div class="c-label">Phone</div><div class="c-val"><a href="tel:+910000000000">+91 00000 00000</a></div></div></div>
+                <div class="contact-item"><div class="c-icon"><i class="fa fa-envelope"></i></div><div><div class="c-label">Email</div><div class="c-val"><a href="mailto:info@oceanhotel.in">info@oceanhotel.in</a></div></div></div>
+                <div class="contact-item"><div class="c-icon"><i class="fa fa-globe"></i></div><div><div class="c-label">Website</div><div class="c-val"><a href="#">www.oceanhotel.in</a></div></div></div>
+            </div>
+        </div>
+        <div class="reveal d1">
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <div class="form-row">
+                    <div class="form-group"><label>First Name</label><input type="text" placeholder="John"></div>
+                    <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+                </div>
+                <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@example.com"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Check-in Date</label><input type="date"></div>
+                    <div class="form-group"><label>Room Type</label>
+                        <select><option value="">Select room</option><option>Ocean Suite</option><option>Deluxe Room</option><option>Sea View Room</option></select>
+                    </div>
+                </div>
+                <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your stay requirements..."></textarea></div>
+                <button class="btn-submit">Send Enquiry</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="f-brand">Ocean</div>
+            <span class="f-tag">Ocean Hotel Maharashtra</span>
+            <p class="f-about">Ocean Hotel was established to provide the best stay experience for every guest. With a warm atmosphere, professional service, and complete facilities, we make every visit memorable.</p>
+            <div class="f-socials">
+                <a href="#" class="f-social"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="f-social"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="f-social"><i class="fa fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Information</h4>
+            <ul>
+                <li><a href="#">Online Enquiry</a></li><li><a href="#">General Enquiries</a></li>
+                <li><a href="#">Booking Conditions</a></li><li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Refund Policy</a></li><li><a href="#">Call Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Experience</h4>
+            <ul>
+                <li><a href="#">Adventure</a></li><li><a href="#">Restaurant</a></li>
+                <li><a href="#">Beach</a></li><li><a href="#">Nature</a></li>
+                <li><a href="#">Spa & Wellness</a></li><li><a href="#">Events</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#home">Home</a></li><li><a href="#rooms">Rooms</a></li>
+                <li><a href="#about">About</a></li><li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li><li><a href="/login">Book Now</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+        <span class="f-copy">© 2025 Ocean Hotel Maharashtra. All rights reserved.</span>
+        <span class="f-copy">Designed with care for our guests.</span>
+    </div>
+</footer>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+      navLinks.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + cur) a.classList.add('active');
+      });
+    });
+</script>
+</body>
+</html>

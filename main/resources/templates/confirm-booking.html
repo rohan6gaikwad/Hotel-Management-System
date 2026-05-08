@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Booking | Pacific Hotel</title>
+
+  <!-- Bootstrap & Fonts -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('/img/gambarhotel.jpeg') no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+      padding: 20px;
+    }
+
+    .confirm-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 35px 45px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      width: 480px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h2 {
+      text-align: center;
+      color: #E85C0D;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    p {
+      margin: 10px 0;
+      font-size: 15px;
+      color: #333;
+    }
+
+    strong {
+      color: #111;
+    }
+
+    .btn-confirm {
+      background-color: #E85C0D;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      width: 48%;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-confirm:hover {
+      background-color: #ff7722;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(232, 92, 13, 0.3);
+    }
+
+    .btn-edit {
+      background-color: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      width: 48%;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-edit:hover {
+      background-color: #5a6268;
+      transform: translateY(-2px);
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="confirm-box">
+    <h2>Confirm Your Booking</h2>
+
+    <!-- Booking summary -->
+    <p><strong>Guest ID:</strong> <span th:text="${booking.guestID}"></span></p>
+    <p><strong>Room No:</strong> <span th:text="${booking.roomNo}"></span></p>
+    <p><strong>Check-in:</strong> <span th:text="${#dates.format(booking.checkin, 'dd/MM/yyyy')}"></span></p>
+    <p><strong>Check-out:</strong> <span th:text="${#dates.format(booking.checkout, 'dd/MM/yyyy')}"></span></p>
+    <p><strong>Duration:</strong> <span th:text="${daysBetween}"></span> night(s)</p>
+    <p><strong>Total Payment:</strong> Rp <span th:text="${#numbers.formatDecimal(booking.payment, 0, 'COMMA', 2, 'POINT')}"></span></p>
+
+    <div class="button-row">
+
+      <!-- ✏️ EDIT BUTTON -->
+      <form th:action="@{/booking/add}" method="get" style="width:48%;">
+        <input type="hidden" name="guestID" th:value="${booking.guestID}">
+        <input type="hidden" name="roomNo" th:value="${booking.roomNo}">
+        <input type="hidden" name="checkin" th:value="${#dates.format(booking.checkin, 'yyyy-MM-dd')}">
+        <input type="hidden" name="checkout" th:value="${#dates.format(booking.checkout, 'yyyy-MM-dd')}">
+        <input type="hidden" name="payment" th:value="${booking.payment}">
+        <button type="submit" class="btn-edit w-100">Edit</button>
+      </form>
+
+      <!-- ✅ CONFIRM BUTTON -->
+      <form th:action="@{/booking/save}" method="post" style="width:48%;" th:object="${booking}">
+        <input type="hidden" th:field="*{guestID}">
+        <input type="hidden" th:field="*{roomNo}">
+        <input type="hidden" th:field="*{checkin}">
+        <input type="hidden" th:field="*{checkout}">
+        <input type="hidden" th:field="*{payment}">
+        <button type="submit" class="btn-confirm w-100">Pay</button>
+      </form>
+
+    </div>
+
+    <div class="footer-note">
+      <p>Need help? Contact our front desk anytime.</p>
+    </div>
+  </div>
+</body>
+</html>

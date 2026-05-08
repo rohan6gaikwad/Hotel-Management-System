@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Successful | Pacific Hotel</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('/img/gambarhotel.jpeg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+      overflow: hidden;
+    }
+
+    .success-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 50px 60px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeInUp 0.9s ease-in-out;
+      width: 480px;
+    }
+
+    .success-icon {
+      font-size: 70px;
+      color: #28a745;
+      margin-bottom: 20px;
+      animation: pop 0.6s ease-in-out;
+    }
+
+    h2 {
+      font-weight: 600;
+      color: #E85C0D;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    .btn-home {
+      background-color: #E85C0D;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-home:hover {
+      background-color: #ff7733;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(232, 92, 13, 0.3);
+      color: white;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      70% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="success-card">
+    <div class="success-icon">✅</div>
+    <h2>Booking Confirmed!</h2>
+    <p>Thank you for choosing <strong>Pacific Hotel</strong>.<br>
+       Your reservation has been successfully completed.<br>
+       The Payment will be charged on your Lmail Pay later</p>
+
+    <a th:href="@{/guest/dashboard}" class="btn-home">Back to Homea</a>
+  </div>
+</body>
+</html>

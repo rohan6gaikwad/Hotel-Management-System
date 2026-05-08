@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="/css/animate.css">
+	
+	<link rel="stylesheet" href="/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="/css/magnific-popup.css">
+
+	<link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="/css/jquery.timepicker.css">
+
+	
+	<link rel="stylesheet" href="/css/flaticon.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<style>
+		html{
+			scroll-behavior: smooth;
+		}
+        #roomImages img {
+            margin: 10px;
+            border-radius: 5px;
+        }
+
+        #roomDetails {
+        display: none; /* Initial state remains hidden */
+        padding-top: 20px; /* Adds some space above the section */
+        background-color: #f8f9fa; /* Light background for the section */
+        border-top: 2px solid #dee2e6; /* Adds a subtle border top for separation */
+    }
+
+    #roomDetails .container {
+        padding: 20px; 
+        background: white; /* Background color for the content area */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+        border-radius: 8px; /* Rounded corners for the container */
+    }
+
+    #roomDetails h4 {
+        color: #333; /* Darker text color for the heading */
+        font-size: 24px; /* Slightly larger font size for heading */
+        font-weight: bold; /* Bold font weight for heading */
+        margin-bottom: 15px; /* Space below the heading */
+    }
+
+    #roomDetails p {
+        color: #555; /* Medium contrast for the paragraph */
+        font-size: 16px; /* Readable font size for description */
+        margin-bottom: 20px; /* Space below the paragraph */
+    }
+
+    #roomImages .card {
+        flex: 1 1 280px; /* Flex basis allows responsive sizing */
+        margin: 10px; /* Space around cards */
+    }
+
+    #roomImages .card-img-top {
+        height: 200px; /* Fixed height for images */
+        object-fit: cover; /* Ensures images cover the card area */
+        border-top-left-radius: calc(.25rem - 1px); /* Rounded top corners */
+        border-top-right-radius: calc(.25rem - 1px); /* Rounded top corners */
+    }
+
+    #roomImages .card-body {
+        padding: 15px; /* Padding inside the card body */
+    }
+
+    #roomImages .card-title {
+        font-size: 18px; /* Font size for card titles */
+        color: #007bff; /* Theme color for titles */
+    }
+
+    #roomImages .card-text {
+        font-size: 14px; /* Smaller font size for card text */
+        color: #666; /* Slightly darker color for text */
+    }
+
+    #roomImages .btn-primary {
+        background-color: #007bff; /* Primary button background color */
+        border-color: #007bff; /* Primary button border color */
+    }
+	</style>
+    
+    
+    <title>Dashboard</title>
+</head>
+<body>
+    <!-- Display Flash Message for Info -->
+    <div aria-live="polite" aria-atomic="true" style="position: relative; z-index: 1050;">
+        <div class="toast" style="position: absolute; top: 20px; right: 20px;" data-delay="5000">
+            <div class="toast-header">
+                <strong class="mr-auto">Notification</strong>
+                <small>Just now</small>
+                <!-- Replace the previous button with this close button -->
+                <button type="button" class="close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body" th:if="${infoMessage}" th:text="${infoMessage}"></div>
+        </div>
+    </div>
+    
+    
+    <!-- Konten dari Dashboard -->
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="/guest">Pacific<span>Travel Agency</span></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a href="/guest/dashboard" class="nav-link">Home</a></li>
+				</ul>
+			</div>	
+
+			<li class="nav-item" style="text-decoration: none; list-style: none; margin-right: 10px;">
+				<!-- Trigger button for modal -->
+				<button class="btn btn-primary nav-link booking-btn" style="color: black !important; background-color: #E8F3FA !important; border-color: #E8F3FA !important;" data-toggle="modal" data-target="#bookingModal">
+					Booking Room
+				</button>
+			</li>	
+		</div>
+
+	</nav>
+	<!-- END nav -->
+     <!-- carousel -->
+     <div class="hero-wrap js-fullheight" style="background-image: url('/img/gambarhotel.jpeg');">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+				<div class="col-md-7 ftco-animate">
+					<span class="subheading">Welcome to Pacific</span>
+					<h1 class="mb-4">Discover Your Favorite Place with Us</h1>
+					<p class="caps">Travel to the any corner of the world, without going around in circles</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end carousel -->
+ 
+<!-- Room Details Section -->
+<div id="roomDetails" style="display:none;">
+    <div class="container">
+        <h4>Room Details</h4>
+        <p id="roomDescription"></p>
+        <div id="roomImages" class="d-flex flex-wrap justify-content-start"></div> <!-- Container for room images -->
+    </div>
+</div>
+
+
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Booking Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="checkAvailabilityForm">
+                    <div class="form-group">
+                        <label for="roomType">Room Type</label>
+                        <select class="form-control" id="roomType">
+                            <option value="standard">Standard</option>
+                            <option value="deluxe">Deluxe</option>
+                            <option value="suite">Suite</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Check Availability</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end booking form -->
+
+     
+</body>
+<!-- script buat dari home -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min2.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="/js/google-map.js"></script>
+<script src="/js/main.js"></script>
+<!--  -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script> 
+    <script>
+        $(document).ready(function(){
+            var roomData = [
+                {
+                    description: "Standard Room: A cozy room with all the basic amenities, perfect for budget travelers.",
+                    images: ['/img/standard.jpeg', '/img/standard1.jpeg']
+                },
+                {
+                    description: "Deluxe Room: Spacious room with a beautiful view of the city, ideal for couples.",
+                    images: ['/img/deluxe.jpeg', '/img/deluxe1.jpeg']
+                },
+                {
+                    description: "Suite: A luxurious suite with top-notch facilities, perfect for those who want to indulge.",
+                    images: ['/img/suite.jpeg', '/img/suite1.jpeg']
+                }
+            ];
+    
+            $('#checkAvailabilityForm').submit(function(e) {
+                e.preventDefault();
+    
+                var roomType = $('#roomType').val().toLowerCase();
+                var selectedRoom = roomData.find(room => room.description.toLowerCase().includes(roomType));
+                
+                if (selectedRoom) {
+                    var imagesHtml = selectedRoom.images.map(image => `
+                        <div class="card" style="width: 18rem; margin: 10px;">
+                            <img src="${image}" class="card-img-top" alt="Room Image">
+                            <div class="card-body">
+                                <h5 class="card-title">Room Type: ${roomType.charAt(0).toUpperCase() + roomType.slice(1)}</h5>
+                                <p class="card-text">${selectedRoom.description}</p>
+                                <button onclick="bookNow('${roomType}')" class="btn btn-primary">Book Now</button>
+                            </div>
+                        </div>
+                    `).join('');
+    
+                    $('#roomDescription').html(`<strong>Description:</strong> ${selectedRoom.description}`);
+                    $('#roomImages').html(imagesHtml);
+                    $('#roomDetails').show();
+    
+                    $('html, body').animate({
+                        scrollTop: $("#roomDetails").offset().top - 100
+                    }, 1000);
+                }
+            });
+    
+            if ($('.toast-body').text() !== '') {
+                $('.toast').toast('show');
+            }
+    
+            $('.booking-btn').click(function() {
+                $('#bookingModal').modal('toggle');
+            });
+        });
+    
+        function bookNow(roomType) {
+        const encodedRoomType = encodeURIComponent(roomType);
+        // arahkan ke /booking/add dengan parameter roomType
+        window.location.href = `/booking/add?roomType=${encodedRoomType}`;
+    }
+
+    </script>
+    
+    
+</html>
+

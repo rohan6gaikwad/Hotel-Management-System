@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Pacific Hotel</title>
+
+<!-- Fonts & Bootstrap -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: url('/img/gambarhotel.jpeg') no-repeat center center/cover;
+    min-height: 100vh;
+    backdrop-filter: blur(4px);
+  }
+
+  .nav-bar {
+    background: rgba(0,0,0,0.85);
+    padding: 12px 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    font-size: 15px;
+  }
+  .nav-bar a {
+    color: #ddd;
+    text-decoration: none;
+    font-weight: 500;
+    transition: .2s;
+  }
+  .nav-bar a:hover,
+  .nav-bar .active {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .wrapper {
+    width: 88%;
+    margin: 80px auto;
+  }
+
+  .page-title {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  .page-title h2 {
+    font-weight: 600;
+    color: #222;
+  }
+  .page-title small {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .table-box {
+    background: rgba(255,255,255,0.92);
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  thead {
+    background-color: #E85C0D;
+    color: white;
+  }
+
+  .btn-delete {
+    background: #d9534f;
+    color: white;
+    border-radius: 6px;
+    padding: 5px 10px;
+  }
+  .btn-delete:hover {
+    background: #c9302c;
+  }
+
+  .btn-add {
+    background: #E85C0D;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 15px;
+    margin-bottom: 15px;
+    float: right;
+  }
+  .btn-add:hover {
+    background: #ff6c2f;
+  }
+  .stat-cards {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin: 0 10px;
+}
+
+.stat-card.green { background: #2ecc71; color: white; }
+.stat-card.blue { background: #007bff; color: white; }
+.stat-card.grey { background: #7f8c8d; color: white; }
+
+.stat-card:hover {
+    transform: scale(1.03);
+    transition: .2s ease-in-out;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="nav-bar">
+  <a class="active">Admin Panel</a>
+  <a th:href="@{/home}" style="color: #ff6b6b; font-weight:600;">Logout</a>
+</div>
+
+<div class="wrapper">
+  
+  <!-- TITLE -->
+  <div class="page-title">
+    <h2>Admin Dashboard</h2>
+    <small>Manage and track customer bookings.</small>
+  </div>
+
+  <!-- TABLE BOX -->
+ <div class="stat-cards">
+
+    <div class="stat-card green">
+        <h4>Total Revenue</h4>
+        <h3>Rp <span th:text="${#numbers.formatDecimal(totalRevenue,0,'COMMA',2,'POINT')}"></span></h3>
+    </div>
+
+    <div class="stat-card blue">
+        <h4>Active Bookings</h4>
+        <h3 th:text="${activeBookings}"></h3>
+    </div>
+
+    <div class="stat-card grey">
+        <h4>Finished</h4>
+        <h3 th:text="${finishedBookings}"></h3>
+    </div>
+
+</div>
+
+
+
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Guest</th>
+          <th>Room</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="b : ${bookings}">
+          <td th:text="${b.bookingID}"></td>
+          <td th:text="${b.guestID}"></td>
+          <td th:text="${b.roomNo}"></td>
+          <td th:text="${#dates.format(b.checkin, 'dd/MM/yyyy')}"></td>
+          <td th:text="${#dates.format(b.checkout, 'dd/MM/yyyy')}"></td>
+          <td>Rp <span th:text="${#numbers.formatDecimal(b.payment,0,'COMMA',2,'POINT')}"></span></td>
+          <td th:text="${b.status}"></td>
+
+          <td>
+
+            <a th:href="@{/admin/bookings/delete/{id}(id=${b.bookingID})}"
+                class="btn-delete"
+                onclick="return confirm('Are you sure?')">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
